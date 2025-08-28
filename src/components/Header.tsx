@@ -1,6 +1,7 @@
 import { ShoppingCart, Store } from 'lucide-react';
 import { useCartStore } from '../store/cartStore';
 import { Button } from './ui/button';
+import { Link, useLocation } from 'react-router-dom';
 
 interface HeaderProps {
   onCartClick: () => void;
@@ -8,29 +9,53 @@ interface HeaderProps {
 
 const Header = ({ onCartClick }: HeaderProps) => {
   const totalItems = useCartStore((state) => state.getTotalItems());
+  const location = useLocation();
   
   console.log('Header rendered, total items:', totalItems);
+
+  const scrollToMenu = () => {
+    if (location.pathname !== '/') {
+      // Si no estamos en la página principal, navegar primero
+      window.location.href = '/#menu';
+    } else {
+      // Si estamos en la página principal, hacer scroll
+      const menuSection = document.getElementById('menu');
+      menuSection?.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
 
   return (
     <header className="bg-white shadow-md sticky top-0 z-50">
       <div className="container mx-auto px-4 py-4">
         <div className="flex items-center justify-between">
-          <div className="flex items-center space-x-2">
+          <Link to="/" className="flex items-center space-x-2">
             <Store className="h-8 w-8 text-orange-500" />
             <h1 className="text-2xl font-bold text-gray-800">FoodieStore</h1>
-          </div>
+          </Link>
           
           <nav className="hidden md:flex space-x-6">
-            <a href="#" className="text-gray-600 hover:text-orange-500 transition-colors">
+            <Link 
+              to="/" 
+              className="text-gray-600 hover:text-orange-500 transition-colors"
+            >
               Inicio
-            </a>
-            <a href="#" className="text-gray-600 hover:text-orange-500 transition-colors">
+            </Link>
+            <button
+              onClick={scrollToMenu}
+              className="text-gray-600 hover:text-orange-500 transition-colors"
+            >
               Menú
-            </a>
-            <a href="#" className="text-gray-600 hover:text-orange-500 transition-colors">
+            </button>
+            <Link 
+              to="/about" 
+              className="text-gray-600 hover:text-orange-500 transition-colors"
+            >
               Sobre Nosotros
-            </a>
-            <a href="#" className="text-gray-600 hover:text-orange-500 transition-colors">
+            </Link>
+            <a 
+              href="#contact" 
+              className="text-gray-600 hover:text-orange-500 transition-colors"
+            >
               Contacto
             </a>
           </nav>

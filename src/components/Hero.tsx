@@ -1,4 +1,5 @@
 import { Button } from './ui/button';
+import { Link } from 'react-router-dom';
 
 const Hero = () => {
   const scrollToMenu = () => {
@@ -28,13 +29,15 @@ const Hero = () => {
             Ver Menú
           </Button>
           
-          <Button
-            variant="outline"
-            size="lg"
-            className="border-white text-white hover:bg-white hover:text-orange-500 font-semibold px-8 py-3"
-          >
-            Sobre Nosotros
-          </Button>
+          <Link to="/about">
+            <Button
+              variant="outline"
+              size="lg"
+              className="border-white text-white hover:bg-white hover:text-orange-500 font-semibold px-8 py-3 w-full"
+            >
+              Sobre Nosotros
+            </Button>
+          </Link>
         </div>
         
         <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
